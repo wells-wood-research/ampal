@@ -3,6 +3,7 @@
 from collections import OrderedDict
 import itertools
 import pathlib
+import typing as t
 
 from .base_ampal import Atom
 from .assembly import AmpalContainer, Assembly
@@ -13,7 +14,9 @@ from .amino_acids import standard_amino_acids
 from .data import PDB_ATOM_COLUMNS
 
 
-def load_pdb(pdb, path=True, pdb_id="", ignore_end=False):
+def load_pdb(
+    pdb, path=True, pdb_id="", ignore_end=False
+) -> t.Union[AmpalContainer, Assembly]:
     """Converts a PDB file into an AMPAL object.
 
     Parameters
@@ -347,8 +350,9 @@ class PdbParser(object):
         monomer_labels, monomer_data = monomer_info
         if len(monomer_labels) > 1:
             raise ValueError(
-                "Malformed PDB, single monomer id with "
-                "multiple labels. {}".format(monomer_labels)
+                "Malformed PDB, single monomer id with " "multiple labels. {}".format(
+                    monomer_labels
+                )
             )
         else:
             monomer_label = list(monomer_labels)[0]

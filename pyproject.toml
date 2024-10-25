@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.8"
 dependencies = [
   "cython",
+  "h5py>=3.11.0",
   "networkx==3.1",
   "numpy==1.22",
   "requests",
@@ -18,5 +19,5 @@ dependencies = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[project.scripts]
-voxelise = "ampal:voxelise_cli:main"
+# [project.scripts]
+# voxelise = "ampal:voxelise_cli:main"

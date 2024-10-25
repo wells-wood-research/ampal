@@ -1,44 +1,46 @@
 """AMPAL objects that represent protein."""
 
-from collections import OrderedDict
+import typing as t
 import warnings
+from collections import OrderedDict
 
 import numpy
 
-from ampal.base_ampal import Polymer, Monomer, Atom
-from ampal.pseudo_atoms import Primitive
-from ampal.analyse_protein import (
-    make_primitive_extrapolate_ends,
-    measure_torsion_angles,
-    residues_per_turn,
-    polymer_to_reference_axis_distances,
-    crick_angles,
-    alpha_angles,
-    sequence_molecular_weight,
-    sequence_molar_extinction_280,
-    sequence_isoelectric_point,
-    measure_sidechain_torsion_angles,
-)
-from ampal.interactions import (
-    generate_covalent_bond_graph,
-    generate_bond_subgraphs_from_break,
-    find_covalent_bonds,
-)
 from .amino_acids import (
     get_aa_code,
     get_aa_letter,
-    ideal_backbone_bond_lengths,
     ideal_backbone_bond_angles,
-)
-from .geometry import (
-    Quaternion,
-    unit_vector,
-    dihedral,
-    find_transformations,
-    distance,
-    angle_between_vectors,
+    ideal_backbone_bond_lengths,
 )
 from .ampal_warnings import MalformedPDBWarning
+from .analyse_protein import (
+    alpha_angles,
+    crick_angles,
+    make_primitive_extrapolate_ends,
+    measure_sidechain_torsion_angles,
+    measure_torsion_angles,
+    polymer_to_reference_axis_distances,
+    residues_per_turn,
+    sequence_isoelectric_point,
+    sequence_molar_extinction_280,
+    sequence_molecular_weight,
+)
+from .assembly import Assembly
+from .base_ampal import Atom, Monomer, Polymer
+from .geometry import (
+    Quaternion,
+    angle_between_vectors,
+    dihedral,
+    distance,
+    find_transformations,
+    unit_vector,
+)
+from .interactions import (
+    find_covalent_bonds,
+    generate_bond_subgraphs_from_break,
+    generate_covalent_bond_graph,
+)
+from .pseudo_atoms import Primitive
 
 
 def flat_list_to_polymer(atom_list, atom_group_s=4):
@@ -199,7 +201,13 @@ class Polypeptide(Polymer):
         a `Monomer`.
     """
 
-    def __init__(self, monomers=None, polymer_id=" ", parent=None, sl=2):
+    def __init__(
+        self,
+        monomers=t.List["Residue"],
+        polymer_id=" ",
+        parent: t.Optional[Assembly] = None,
+        sl=2,
+    ):
         super().__init__(
             monomers=monomers,
             polymer_id=polymer_id,
@@ -888,7 +896,7 @@ class Residue(Monomer):
         monomer_id=" ",
         insertion_code=" ",
         is_hetero=False,
-        parent=None,
+        parent: t.Optional[Polymer] = None,
     ):
         super(Residue, self).__init__(atoms, monomer_id, parent=parent)
         if len(mol_code) == 3:

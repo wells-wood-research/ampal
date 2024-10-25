@@ -137,7 +137,7 @@ from aposteriori.data_prep.create_frame_data_set import (
     "--download_file",
     type=click.Path(exists=True, readable=True),
     help=(
-        "Path to csv file with PDB codes to be voxelised. The biological assembly will be used for download. PDB codes will be downloaded the /pdb/ folder."
+        "Path to csv file with PDB codes to be voxelized. The biological assembly will be used for download. PDB codes will be downloaded the /pdb/ folder."
     ),
 )
 @click.option(
@@ -164,11 +164,11 @@ from aposteriori.data_prep.create_frame_data_set import (
 )
 @click.option(
     "-vas",
-    "--voxelise_all_states",
+    "--voxelize_all_states",
     type=bool,
     default=False,
     help=(
-        "Whether to voxelise only the first state of the NMR structure (False) or all of them (True)."
+        "Whether to voxelize only the first state of the NMR structure (False) or all of them (True)."
     ),
 )
 @click.option(
@@ -196,7 +196,7 @@ def cli(
     voxels_as_gaussian: bool,
     blacklist_csv: str,
     compression_gzip: bool,
-    voxelise_all_states: bool,
+    voxelize_all_states: bool,
     tag_rotamers: bool,
 ):
     """Creates a dataset of voxelized amino acid frames.
@@ -251,7 +251,7 @@ def cli(
             pdb_outpath=pathlib.Path(output_folder),
             verbosity=verbose,
             workers=processes,
-            voxelise_all_states=voxelise_all_states,
+            voxelize_all_states=voxelize_all_states,
         )
         # TODO check if structure files is a flat list
     else:
@@ -317,7 +317,7 @@ def cli(
         voxels_as_gaussian=voxels_as_gaussian,
         blacklist_csv=blacklist_csv,
         gzip_compression=compression_gzip,
-        voxelise_all_states=voxelise_all_states,
+        voxelize_all_states=voxelize_all_states,
         tag_rotamers=tag_rotamers,
     )
     return

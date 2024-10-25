@@ -4,9 +4,11 @@ from collections import OrderedDict
 import itertools
 
 import numpy
+import typing as t
 
 from .data import ELEMENT_DATA, PDB_ATOM_COLUMNS
 from .geometry import distance, Quaternion, centre_of_mass, rmsd
+from .assembly import Assembly
 
 
 def cap(v, l):
@@ -299,7 +301,7 @@ class Polymer(BaseAmpal):
         ligands=None,
         polymer_id=" ",
         molecule_type="",
-        parent=None,
+        parent: t.Optional[Assembly] = None,
         sl=2,
     ):
         if monomers:
@@ -526,7 +528,7 @@ class Monomer(BaseAmpal):
         to store any relevant information they have.
     """
 
-    def __init__(self, atoms=None, monomer_id=" ", parent=None):
+    def __init__(self, atoms=None, monomer_id=" ", parent: t.Optional[Polymer] = None):
         if isinstance(atoms, OrderedDict):
             self.states = dict(A=atoms)
             self._active_state = "A"
