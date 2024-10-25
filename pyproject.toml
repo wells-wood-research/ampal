@@ -1,15 +1,19 @@
-[build-system]
-requires = ["setuptools", "wheel", "Cython"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "AMPAL"
+name = "ampal"
 version = "1.5.4"
-requires-python = ">= 3.8"
+description = "Intuitive framework for working with biomolecular structure."
 readme = "README.md"
+authors = [
+    { name = "ChrisWellsWood", email = "cwwoodesq@gmail.com" }
+]
+requires-python = ">=3.8"
 dependencies = [
-  "Cython",
+  "cython",
   "networkx==3.1",
   "numpy==1.22",
   "requests",
 ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
