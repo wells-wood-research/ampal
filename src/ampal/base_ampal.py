@@ -8,7 +8,6 @@ import typing as t
 
 from .data import ELEMENT_DATA, PDB_ATOM_COLUMNS
 from .geometry import distance, Quaternion, centre_of_mass, rmsd
-from .assembly import Assembly
 
 
 def cap(v, l):
@@ -301,7 +300,7 @@ class Polymer(BaseAmpal):
         ligands=None,
         polymer_id=" ",
         molecule_type="",
-        parent: t.Optional[Assembly] = None,
+        parent: t.Optional["Assembly"] = None,
         sl=2,
     ):
         if monomers:
